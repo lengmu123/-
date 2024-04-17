@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>让坦克开起来</title>
+		<style type="text/css">
+			input{font-size:26px;margin-top: 20px;}
+			body{background-image: url(images/grassland.png);}
+			#mytank{position: absolute;left:10px;top:100px}
+		</style>
+	</head>
+	<body>		
+		<img id="mytank" src="images/right.png"/>
+		<script>
+			// 编写代码，让坦克能上下左右移动
+			 let tanke = document.getElementById("mytank");
+			//让坦克动起来
+			let timer = setInterval(function(){
+			    
+				//获取当前坦克的left值
+				var left = tanke.offsetLeft;
+				//获取当前坦克的top值
+				var top = tanke.offsetTop;	
+				
+	
+				
+			})
+			
+			// 键盘按下事件
+			document.onkeydown = function(event){
+			    
+				// 获取事件对象
+				let e = event || window.event;
+				// 获取按键的值
+				let keyCode = e.keyCode;
+				
+				// 判断按键的值
+				switch(keyCode){
+				    case 37: // 左
+				        tanke.src = "images/left.png";
+						// 修改left值
+						// 获取当前坦克的left值
+						let left = tanke.offsetLeft;
+						// 修改left值
+						left -= 10;
+						break;
+				    case 38: // 上
+				        tanke.src = "images/up.png";
+						top -= 10;
+						break;
+				    case 39: // 右
+						tanke.src = "images/right.png";
+						left += 10;
+						break;
+				    case 40: // 下		
+						tanke.src = "images/down.png";
+						top += 10;
+						break;
+				}
+			}
+		</script>
+	</body>
+</html>
