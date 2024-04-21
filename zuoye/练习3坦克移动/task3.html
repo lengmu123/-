@@ -1,63 +1,96 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>让坦克开起来</title>
-		<style type="text/css">
-			input{font-size:26px;margin-top: 20px;}
-			body{background-image: url(images/grassland.png);}
-			#mytank{position: absolute;left:10px;top:100px}
-		</style>
-	</head>
-	<body>		
-		<img id="mytank" src="images/right.png"/>
-		<script>
-			// 编写代码，让坦克能上下左右移动
-			 let tanke = document.getElementById("mytank");
-			//让坦克动起来
-			let timer = setInterval(function(){
-			    
-				//获取当前坦克的left值
-				var left = tanke.offsetLeft;
-				//获取当前坦克的top值
-				var top = tanke.offsetTop;	
-				
-	
-				
-			})
-			
-			// 键盘按下事件
-			document.onkeydown = function(event){
-			    
-				// 获取事件对象
-				let e = event || window.event;
-				// 获取按键的值
-				let keyCode = e.keyCode;
-				
-				// 判断按键的值
-				switch(keyCode){
-				    case 37: // 左
-				        tanke.src = "images/left.png";
-						// 修改left值
-						// 获取当前坦克的left值
-						let left = tanke.offsetLeft;
-						// 修改left值
-						left -= 10;
-						break;
-				    case 38: // 上
-				        tanke.src = "images/up.png";
-						top -= 10;
-						break;
-				    case 39: // 右
-						tanke.src = "images/right.png";
-						left += 10;
-						break;
-				    case 40: // 下		
-						tanke.src = "images/down.png";
-						top += 10;
-						break;
-				}
-			}
-		</script>
-	</body>
+
+<head>
+    <meta charset="utf-8" />
+    <title>让坦克开起来</title>
+    <style type="text/css">
+        input {
+            font-size: 26px;
+            margin-top: 20px;
+        }
+
+        body {
+            background-image: url(images/grassland.png);
+        }
+
+        #mytank {
+            position: absolute;
+            left: 10px;
+            top: 100px
+        }
+    </style>
+</head>
+
+<body>
+    <img id="mytank" src="images/right.png" />
+    <script>
+//219970238向杨
+        //获取坦克
+        var tank = document.getElementById("mytank");
+        //获取屏幕宽度
+        var screenWidth = window.innerWidth;
+        //获取屏幕高度
+        var screenHeight = window.innerHeight;
+        alert("wasd或方向键控制坦克移动,禁用右键和F12");
+        //禁用右键
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+        // 禁用F12
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode == 123) {
+                event.preventDefault();
+            }
+        });
+        // 使用键盘的WSAD或者上下左右键，操纵坦克向相应的方向移动。
+        document.addEventListener('keydown', function (event) {
+            let moveDistance = 10; // 定义移动的距离
+            switch (event.keyCode) {
+                case 87: // 按键 W 或 上箭头
+                case 38:
+                    // 应用过渡效果并旋转坦克 -90 度，表示向上移动
+                    tank.style.transition = "all 0.2s ease";
+                    tank.style.transform = "rotate(-90deg)";
+                    // 确保坦克顶部不会超出边界
+                    if (tank.offsetTop - moveDistance >= 0) {//元素顶部距离减去移动距离大于0才可移动
+                        tank.style.top = tank.offsetTop - moveDistance + 'px';
+                    }
+                    break;
+                case 68: // D 或 右箭头
+                case 39:
+                    tank.style.transition = "all 0.2s ease";
+                    tank.style.transform = "rotate(0deg)";
+                    // 确保坦克右侧不会超出边界
+                    if (tank.offsetLeft + moveDistance + tank.clientWidth <= screenWidth) {//元素左侧距离加元素内部距离加移动距离小于屏幕宽度才可移动
+                        tank.style.left = tank.offsetLeft + moveDistance + 'px';
+                    }
+                    break;
+
+                case 83: // S 或 下箭头
+                case 40:
+                    tank.style.transition = "all 0.2s ease";
+                    tank.style.transform = "rotate(90deg)";
+                    // 确保坦克底部不会超出边界
+                    if (tank.offsetTop + moveDistance + tank.clientHeight <= screenHeight) {//元素顶部距离加元素内部距离加移动距离小于屏幕高度才可移动
+                        tank.style.top = tank.offsetTop + moveDistance + 'px';
+                    }
+                    break;
+        
+                case 65: // A 或 左箭头
+                case 37:
+                    tank.style.transition = "all 0.2s ease";
+                    tank.style.transform = "rotate(180deg)";
+                    // 确保坦克左侧不会超出边界
+                    if (tank.offsetLeft - moveDistance >= 0) {//元素左侧距离减去移动距离大于0才可移动
+                        tank.style.left = tank.offsetLeft - moveDistance + 'px';
+                    }
+                    break;
+            }
+
+        });
+
+    </script>
+</body>
+
 </html>
