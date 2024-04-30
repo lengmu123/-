@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .yemian {
+            width: 1000px;
+            height: 5000px;
+            background-color: aqua;
+            margin: 0 auto;
+            /* 水平居中 */
+            position: relative;
+        }
+
+        /* 左侧固定栏 */
+        .sidebar-left {
+            position: fixed;
+            /* 固定位置 */
+            top: 10px;
+            left: 0;
+            width: 200px;
+            background-color: #fff;
+        }
+
+        .sidebar-left img {
+            /* position: fixed; */
+            top: 10px;
+            left: 0;
+            width: 200px;
+            background-color: #fff;
+            position: relative;
+            /* 作为按钮的定位参考 */
+        }
+
+        /* 内容区域，用于推移右侧栏 */
+        .content {
+            margin-left: 200px;
+            /* 左侧边栏的宽度 */
+        }
+
+        /* 右侧固定栏 */
+        .sidebar-right {
+            position: fixed;
+            /* 固定位置 */
+            top: 10px;
+            right: 0;
+            width: 200px;
+            background-color: #fff;
+
+        }
+
+        .sidebar-right img {
+            /* position: fixed; */
+            top: 10px;
+            right: 0;
+            width: 200px;
+            background-color: #fff;
+            position: relative;
+            /* 作为按钮的定位参考 */
+        }
+
+        .guan {
+            position: absolute;
+            /* 相对定位 */
+            bottom: 10px;
+            /* 距离图片底部10px */
+            right: 10px;
+            /* 距离图片右侧10px */
+        }
+
+        .tan {
+            position: fixed;
+            /* 固定位置 */
+            right: 20px;
+            /* 距离右侧20px */
+            width: 150px;
+            /* 图片的宽度 */
+
+        }
+
+        .tan img {
+            position: relative;
+            /* 作为按钮的定位参考 */
+
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="yemian">
+
+    </div>
+    <div class="zuo sidebar-left">
+        <img src="img/guanggao.jpg" alt="">
+        <button class="guan">关闭</button>
+
+    </div>
+    <div class="you sidebar-right">
+        <img src="img/guanggao.jpg" alt="">
+        <button class="guan"> 关闭</button>
+    </div>
+    <div class="tan">
+        <img class="float-image" src="img/tanchuguanggao.png" alt="">
+        <button class="guan"> 关闭</button>
+    </div>
+
+    <script>
+        //获取广告关闭按钮，点击关闭广告
+        let closeBtnZuo = document.querySelector('.sidebar-left button');
+        closeBtnZuo.addEventListener('click', function () {
+            var sidebar = document.querySelector('.sidebar-left');
+            sidebar.style.display = 'none';
+        })
+        let closeBtnYou = document.querySelector('.sidebar-right button');
+        closeBtnYou.addEventListener('click', function () {
+            var sidebar = document.querySelector('.sidebar-right');
+            sidebar.style.display = 'none';
+        })
+        let closeBtnTan = document.querySelector('.tan button');
+        closeBtnTan.addEventListener('click', function () {
+            var sidebar = document.querySelector('.tan');
+            sidebar.style.display = 'none';
+        })
+        // 获取广告图片
+        let tan = document.querySelector('.tan');
+
+        // 设置定时器
+        let bottom = -25;//将图片的初始位置设置为视口外
+        let timer = setInterval(popup, 30);// 每隔30毫秒执行一次popup函数
+
+        function popup() {
+            if (bottom >= 10) { //当图片移动到指定位置时，清除定时器
+                clearInterval(timer);
+            } else {
+                bottom += 0.5;// 每次移动0.5个视口高度
+                tan.style.bottom = `${bottom}vh`;
+            }
+        }
+    </script>
+
+</html>
