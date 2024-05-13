@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ditu{
+            width: 100vw;
+            height: 100vh;/* 占领整个窗口 */
+            background-color: #000;
+            position: relative;/* 相对定位 */
+            overflow: hidden;/* 隐藏出地图外部分 */
+            /* z-index: -1; */
+        }
+        .juese{
+            position: absolute; /* 绝对定位 */
+            /* z-index: 1; */
+        }
+        .xiaogenban{
+            position: absolute; /* 绝对定位 */
+        }
+    </style>
+</head>
+<body>
+    <div class="ditu">
+
+            <img class="juese" src="./img/player_right.gif" alt="">
+
+       
+    </div>
+    <script src="../../js/jquery.min.3.7.1.js"></script>
+    <script>
+        alert("使用鼠标控制角色，双击变身")
+        
+        let juese = $(".juese");
+        //鼠标点击，角色移动到点击位置
+        $(".ditu").on("click",function(e){//点击地图
+            let x = e.pageX-juese.width()/2+'px';//鼠标点击坐标-人物宽度/2
+            let y = e.pageY-juese.height()/2+'px';//鼠标点击坐标-人物高度/2
+            
+            if(e.pageX-juese.width()/2<juese.offset().left){   //目标点在人物左边
+                // juese.attr("src","./img/player_left.gif")   //修改图片路径修改人物朝向，（改路径麻烦，弃用）
+                juese.css({
+                    'transform': 'rotateY(180deg)' //水平镜像翻转
+                })
+            }
+            if(e.pageX-juese.width()/2>juese.offset().left){    //目标点在人物右边
+                // juese.attr("src","./img/player_right.gif")  //修改人物朝向
+                juese.css({
+                    'transform': 'rotateY(0deg)' //翻转回来
+                })
+            }
+            console.log(x,y);
+            $(".juese").stop().animate({left: x, top: y}, 1000);//停止之前的移动动画， 移动到点击位置
+        })
+       $(".juese").on("dblclick",function(){//双击角色
+        if(juese.attr("src")=='./img/player_right.gif'){
+            $(".juese").attr("src","./img/playerbig_right.gif")//变身
+        }else{
+            $(".juese").attr("src","./img/player_right.gif")//解除变身
+        }
+         
+       })
+    </script>
+
+
+</body>
+</html>
